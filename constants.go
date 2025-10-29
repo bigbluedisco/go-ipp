@@ -376,6 +376,8 @@ const (
 	AttributeMediaBottomMargin       = "media-bottom-margin"
 	AttributeXDimension              = "x-dimension"
 	AttributeYDimension              = "y-dimension"
+	AttributePrintColorMode          = "print-color-mode"
+	AttributePrintColorModeSupported = "print-color-mode-supported"
 )
 
 // Default attributes
@@ -467,5 +469,7 @@ var (
 		AttributeMediaBottomMargin:       TagInteger,
 		AttributeXDimension:              TagInteger,
 		AttributeYDimension:              TagInteger,
+		AttributePrintColorMode:          TagKeyword,
+		AttributePrintColorModeSupported: TagKeyword,
 	}
 )
