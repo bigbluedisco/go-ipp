@@ -431,6 +431,7 @@ var (
 		AttributePrinterIsAcceptingJobs:  TagBoolean,
 		AttributePrinterIsShared:         TagBoolean,
 		AttributePrinterIsTemporary:      TagBoolean,
+		AttributePrinterMakeAndModel:     TagText,
 		AttributePrinterName:             TagName,
 		AttributePrinterLocation:         TagText,
 		AttributePrinterResolution:       TagResolution,
