@@ -378,6 +378,7 @@ const (
 	AttributeYDimension              = "y-dimension"
 	AttributePrintColorMode          = "print-color-mode"
 	AttributePrintColorModeSupported = "print-color-mode-supported"
+	AttributePrintColorModeDefault   = "print-color-mode-default"
 )
 
 // Default attributes
@@ -471,5 +472,6 @@ var (
 		AttributeYDimension:              TagInteger,
 		AttributePrintColorMode:          TagKeyword,
 		AttributePrintColorModeSupported: TagKeyword,
+		AttributePrintColorModeDefault:   TagKeyword,
 	}
 )
