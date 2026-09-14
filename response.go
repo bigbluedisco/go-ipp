@@ -17,9 +17,10 @@ type Response struct {
 	StatusCode int16
 	RequestId  int32
 
-	OperationAttributes Attributes
-	PrinterAttributes   []Attributes
-	JobAttributes       []Attributes
+	OperationAttributes   Attributes
+	UnsupportedAttributes Attributes
+	PrinterAttributes     []Attributes
+	JobAttributes         []Attributes
 }
 
 // CheckForErrors checks the status code and returns a error if it is not zero. it also returns the status message if provided by the server
@@ -312,6 +313,15 @@ func (d *ResponseDecoder) Decode(data io.Writer) (*Response, error) {
 			tagSet = true
 		}
 
+		if startByte == TagUnsupportedGroup {
+			if len(tempAttributes) > 0 && tag != TagCupsInvalid {
+				appendAttributeToResponse(resp, tag, tempAttributes)
+				tempAttributes = make(Attributes)
+			}
+			tag = TagUnsupportedGroup
+			tagSet = true
+		}
+
 		if tagSet {
 			if _, err := d.reader.Read(startByteSlice); err != nil {
 				return nil, err
@@ -351,6 +361,8 @@ func appendAttributeToResponse(resp *Response, tag int8, attr map[string][]Attri
 	switch tag {
 	case TagOperation:
 		resp.OperationAttributes = attr
+	case TagUnsupportedGroup:
+		resp.UnsupportedAttributes = attr
 	case TagPrinter:
 		resp.PrinterAttributes = append(resp.PrinterAttributes, attr)
 	case TagJob:
