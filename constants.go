@@ -379,6 +379,14 @@ const (
 	AttributePrintColorMode          = "print-color-mode"
 	AttributePrintColorModeSupported = "print-color-mode-supported"
 	AttributePrintColorModeDefault   = "print-color-mode-default"
+
+	// collation: multiple-document-handling (RFC 8011 section 5.2.4) and sheet-collate (RFC 3381)
+	AttributeMultipleDocumentHandling          = "multiple-document-handling"
+	AttributeMultipleDocumentHandlingSupported = "multiple-document-handling-supported"
+	AttributeMultipleDocumentHandlingDefault   = "multiple-document-handling-default"
+	AttributeSheetCollate                      = "sheet-collate"
+	AttributeSheetCollateSupported             = "sheet-collate-supported"
+	AttributeSheetCollateDefault               = "sheet-collate-default"
 )
 
 // Default attributes
@@ -473,5 +481,12 @@ var (
 		AttributePrintColorMode:          TagKeyword,
 		AttributePrintColorModeSupported: TagKeyword,
 		AttributePrintColorModeDefault:   TagKeyword,
+
+		AttributeMultipleDocumentHandling:          TagKeyword,
+		AttributeMultipleDocumentHandlingSupported: TagKeyword,
+		AttributeMultipleDocumentHandlingDefault:   TagKeyword,
+		AttributeSheetCollate:                      TagKeyword,
+		AttributeSheetCollateSupported:             TagKeyword,
+		AttributeSheetCollateDefault:               TagKeyword,
 	}
 )

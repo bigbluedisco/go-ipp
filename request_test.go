@@ -3,6 +3,7 @@ package ipp
 import (
 	"bytes"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
@@ -56,4 +57,29 @@ func TestRequestDecoder_Decode(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, &c.Request, request, "decoded request is not correct")
 	}
+}
+
+func TestRequest_EncodeCollationJobAttributes(t *testing.T) {
+	req := NewRequest(OperationPrintJob, 12345)
+	req.JobAttributes[AttributeMultipleDocumentHandling] = "separate-documents-collated-copies"
+	req.JobAttributes[AttributeSheetCollate] = "collated"
+
+	data, err := req.Encode()
+	require.NoError(t, err)
+
+	// job attributes are encoded in map order, so check each attribute on its own
+	// instead of the whole request. 0x44 is the keyword value tag.
+	for _, attr := range []string{
+		"\x44\x00\x1amultiple-document-handling\x00\x22separate-documents-collated-copies",
+		"\x44\x00\x0dsheet-collate\x00\x08collated",
+	} {
+		assert.Contains(t, string(data), attr, "encoded request is not correct")
+	}
+
+	request, err := NewRequestDecoder(bytes.NewReader(data)).Decode(nil)
+	require.NoError(t, err)
+	assert.Equal(t, map[string]interface{}{
+		AttributeMultipleDocumentHandling: "separate-documents-collated-copies",
+		AttributeSheetCollate:             "collated",
+	}, request.JobAttributes, "decoded request is not correct")
 }
